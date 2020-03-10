@@ -1,0 +1,17 @@
+name: Deploy to Production - Sanity Webhook
+on: [repository_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: amondnet/now-deployment@v2
+      with:
+        zeit-token: ${{ secrets.ZEIT_TOKEN }} # Required
+        github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
+        zeit-team-id: ${{ secrets.ZETI_TEAM_ID }} #Optional
+        now-args: '--prod' #Optional
+        now-org-id: ${{ secrets.ZETI_TEAM_ID }} #Required
+        now-project-id: '${{ secrets.ZEIT_PROJECT_ID }}' #Required
+        working-directory: ./
